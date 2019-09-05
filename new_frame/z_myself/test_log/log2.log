@@ -1,0 +1,6 @@
+Sun, 01 Sep 2019 23:38:27 log2.py[line:13] DEBUG This is debug message
+Sun, 01 Sep 2019 23:38:27 log2.py[line:14] INFO This is info message
+Sun, 01 Sep 2019 23:38:27 log2.py[line:15] WARNING This is warning message
+Sun, 01 Sep 2019 23:39:55 log2.py[line:13] DEBUG This is debug message
+Sun, 01 Sep 2019 23:39:55 log2.py[line:14] INFO This is info message
+Sun, 01 Sep 2019 23:39:55 log2.py[line:15] WARNING This is warning message
