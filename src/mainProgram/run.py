@@ -15,7 +15,7 @@ def start():
 	
 	suites_dir = os.path.abspath(os.path.join(os.getcwd(), "..%s.." % tmp)) + tmp + tmp.join(['src', 'testProject',
 	                                                                                          'test_ddsf'])
-	suite = unittest.defaultTestLoader.discover(start_dir=suites_dir, pattern='*login1_test.py')
+	suite = unittest.defaultTestLoader.discover(start_dir=suites_dir, pattern='*1_test.py')
 	reportDirName = os.path.abspath(os.path.join(os.getcwd(), "..%s.." % tmp)) + tmp + 'output' + tmp + 'report' + tmp
 	
 	now = time.strftime("%Y_%m_%d-%H_%M_%S")

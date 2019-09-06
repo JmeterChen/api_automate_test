@@ -14,50 +14,43 @@ class MethodException(Exception):
 
 class RunMethod(MethodException):
 	
-	def run_main(self, method_num=None, url=None, para_num=None, body_num=None, *args, **kw):
+	headers_default = {"content-type": "application/json"}
+	
+	def run_main(self, url=None, method=None, headers=headers_default, para=None, data=None, **kw):
+		
 		"""
         封装常用的7种http请求方法
-        :param method_num: 请求方法列数，从而获取请求方法 如 GET/OPTIONS/POST/PUT/PATCH/DELETE/HEAD
-        :param url:     请求url
-        # :param header_num: 请求头列数， 从而获取到请求头
-        :param para_num:    请求参数列数，从而获取到请求参数，默认 None
-        :param body_num:  请求数据列数，从而获取到请求体参数，默认 None
-        :param kw:      其他参数
+        :param method:        请求方法，从而获取请求方法 如 GET/OPTIONS/POST/PUT/PATCH/DELETE/HEAD
+        :param url:           请求url
+        :param headers:       请求头，从而获取到请求头， 默认为 application/json
+        :param para:          请求参数，从而获取到请求参数，默认 None
+        :param data:          请求体数据，从而获取到请求体参数，默认 None
+        :param kw:            其他参数
         :return:        Response object，type requests.Response
         """
 		
 		try:
-			method = args[0][method_num]
-			para = args[0][para_num]
-			data = args[0][body_num]
-			# print(method, data)
-			
 			if method:
 				if method.lower() == "get":
 					res = requests.get(url, params=para, **kw)
 				elif method.lower() == "post":
-					if kw.get("json"):
-						# print(kw.get("json"))
-						res = requests.post(url, data=para, **kw)
+					if headers["content-type"] == "application/json":
+						res = requests.post(url, params=para, json=data, **kw)
 					else:
-						res = requests.post(url,  data=para, json=data, **kw)
+						res = requests.post(url, params=para, data=data, **kw)
 				elif method.lower() == 'put':
-					res = requests.put(url, data=data, **kw)
+					res = requests.put(url, params=para, data=data, **kw)
 				elif method.lower() == 'patch':
-					res = requests.patch(url, data=data, **kw)
+					res = requests.patch(url, params=para, data=data, **kw)
 				elif method.lower() == 'delete':
-					res = requests.delete(url, **kw)
+					res = requests.delete(url, params=para, **kw)
 				elif method.lower() == 'head':
-					res = requests.head(url, **kw)
+					res = requests.head(url, params=para, **kw)
 				elif method.lower() == 'options':
-					res = requests.options(url, **kw)
+					res = requests.options(url, params=para, **kw)
 				else:
 					print("Do Not Support Http Method!Please check the args of requests")
 					raise MethodException
 				return res
-			elif para:
-				return para
-			elif data:
-				return data
 		except Exception as err:
 			raise "接口请求数据获取失败！" + str(err)
