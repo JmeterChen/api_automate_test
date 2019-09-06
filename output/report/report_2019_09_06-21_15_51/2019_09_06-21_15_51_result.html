@@ -7159,13 +7159,13 @@ body.skin-3 {
 
 
     var resultData = {
-    "testPass": 13,
+    "testPass": 7,
     "testResult": [
         {
             "className": "LoginTest",
             "methodName": "test_ByPassword_1",
             "description": "用户名密码正确登录",
-            "spendTime": "0.444 s",
+            "spendTime": "0.713 s",
             "status": "成功",
             "log": [
                 ""
@@ -7175,7 +7175,7 @@ body.skin-3 {
             "className": "LoginTest",
             "methodName": "test_ByPassword_2",
             "description": "用户名或密码为空",
-            "spendTime": "0.199 s",
+            "spendTime": "0.184 s",
             "status": "成功",
             "log": [
                 ""
@@ -7185,7 +7185,7 @@ body.skin-3 {
             "className": "LoginTest",
             "methodName": "test_ByPassword_3",
             "description": "用户名或密码为空",
-            "spendTime": "0.232 s",
+            "spendTime": "0.194 s",
             "status": "成功",
             "log": [
                 ""
@@ -7195,7 +7195,7 @@ body.skin-3 {
             "className": "LoginTest",
             "methodName": "test_ByPassword_4",
             "description": "用户名或密码错误",
-            "spendTime": "0.0019 s",
+            "spendTime": "0.00164 s",
             "status": "跳过",
             "log": [
                 ""
@@ -7205,17 +7205,25 @@ body.skin-3 {
             "className": "LoginTest",
             "methodName": "test_ByPassword_5",
             "description": "用户名或密码错误",
-            "spendTime": "0.237 s",
-            "status": "成功",
+            "spendTime": "0.208 s",
+            "status": "失败",
             "log": [
-                ""
+                "",
+                "Traceback (most recent call last):\n",
+                "  File \"/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/unittest/case.py\", line 59, in testPartExecutor\n    yield\n",
+                "  File \"/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/unittest/case.py\", line 605, in run\n    testMethod()\n",
+                "  File \"/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/ddt.py\", line 145, in wrapper\n    return func(self, *args, **kwargs)\n",
+                "  File \"/Users/wawa/Desktop/code/api_automate_test/src/testProject/test_ddsf/a_login1_test.py\", line 59, in test_ByPassword\n    self.assertEqual(True, checkOut(res, self.expect))\n",
+                "  File \"/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/unittest/case.py\", line 829, in assertEqual\n    assertion_func(first, second, msg=msg)\n",
+                "  File \"/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/unittest/case.py\", line 822, in _baseAssertEqual\n    raise self.failureException(msg)\n",
+                "AssertionError: True != False\n"
             ]
         },
         {
             "className": "HomeTest",
             "methodName": "test_HomeInfo_1",
             "description": "首页基本信息加载",
-            "spendTime": "0.77 s",
+            "spendTime": "0.431 s",
             "status": "成功",
             "log": [
                 ""
@@ -7225,7 +7233,7 @@ body.skin-3 {
             "className": "HomeTest",
             "methodName": "test_ProfileInfo_1",
             "description": "商服个人信息",
-            "spendTime": "0.0022 s",
+            "spendTime": "0.00252 s",
             "status": "跳过",
             "log": [
                 ""
@@ -7235,7 +7243,7 @@ body.skin-3 {
             "className": "HomeTest",
             "methodName": "test_SchedulePlanInfo_1",
             "description": "日程安排",
-            "spendTime": "0.249 s",
+            "spendTime": "0.225 s",
             "status": "成功",
             "log": [
                 ""
@@ -7245,7 +7253,7 @@ body.skin-3 {
             "className": "HomeTest",
             "methodName": "test_StaffMessage_1",
             "description": "StaffMessage接口",
-            "spendTime": "0.238 s",
+            "spendTime": "0.214 s",
             "status": "成功",
             "log": [
                 ""
@@ -7255,57 +7263,7 @@ body.skin-3 {
             "className": "HomeTest",
             "methodName": "test_StaffOrg_1",
             "description": "StaffOrg接口",
-            "spendTime": "0.231 s",
-            "status": "成功",
-            "log": [
-                ""
-            ]
-        },
-        {
-            "className": "MapSourceTest",
-            "methodName": "test_CityDistrict_1",
-            "description": "默认城市查询区域",
-            "spendTime": "0.255 s",
-            "status": "成功",
-            "log": [
-                ""
-            ]
-        },
-        {
-            "className": "MapSourceTest",
-            "methodName": "test_CityDistrict_2",
-            "description": "城市区域列表-切换城市-深圳",
-            "spendTime": "0.245 s",
-            "status": "成功",
-            "log": [
-                ""
-            ]
-        },
-        {
-            "className": "MapSourceTest",
-            "methodName": "test_CitySection_1",
-            "description": "城市区域板块查询",
-            "spendTime": "0.302 s",
-            "status": "成功",
-            "log": [
-                ""
-            ]
-        },
-        {
-            "className": "MapSourceTest",
-            "methodName": "test_StoreByCodition_1",
-            "description": "门店列表-地图区域条件",
-            "spendTime": "0.263 s",
-            "status": "成功",
-            "log": [
-                ""
-            ]
-        },
-        {
-            "className": "MapSourceTest",
-            "methodName": "test_StoreInfoList_1",
-            "description": "地图门店区域列表",
-            "spendTime": "0.326 s",
+            "spendTime": "0.197 s",
             "status": "成功",
             "log": [
                 ""
@@ -7313,10 +7271,10 @@ body.skin-3 {
         }
     ],
     "testName": "多多商服接口自动化测试",
-    "testAll": 15,
-    "testFail": 0,
-    "beginTime": "2019-09-04 13:11:04",
-    "totalTime": "4s",
+    "testAll": 10,
+    "testFail": 1,
+    "beginTime": "2019-09-06 21:15:51",
+    "totalTime": "3s",
     "testSkip": 2,
     "testError": 0
 };

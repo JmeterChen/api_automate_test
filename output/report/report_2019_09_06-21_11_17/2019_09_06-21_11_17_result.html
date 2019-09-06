@@ -7159,13 +7159,13 @@ body.skin-3 {
 
 
     var resultData = {
-    "testPass": 4,
+    "testPass": 3,
     "testResult": [
         {
             "className": "LoginTest",
             "methodName": "test_ByPassword_1",
             "description": "用户名密码正确登录",
-            "spendTime": "0.436 s",
+            "spendTime": "0.513 s",
             "status": "成功",
             "log": [
                 ""
@@ -7175,7 +7175,7 @@ body.skin-3 {
             "className": "LoginTest",
             "methodName": "test_ByPassword_2",
             "description": "用户名或密码为空",
-            "spendTime": "0.2 s",
+            "spendTime": "0.209 s",
             "status": "成功",
             "log": [
                 ""
@@ -7185,7 +7185,7 @@ body.skin-3 {
             "className": "LoginTest",
             "methodName": "test_ByPassword_3",
             "description": "用户名或密码为空",
-            "spendTime": "0.202 s",
+            "spendTime": "0.22 s",
             "status": "成功",
             "log": [
                 ""
@@ -7195,7 +7195,7 @@ body.skin-3 {
             "className": "LoginTest",
             "methodName": "test_ByPassword_4",
             "description": "用户名或密码错误",
-            "spendTime": "0.00284 s",
+            "spendTime": "0.00198 s",
             "status": "跳过",
             "log": [
                 ""
@@ -7205,19 +7205,109 @@ body.skin-3 {
             "className": "LoginTest",
             "methodName": "test_ByPassword_5",
             "description": "用户名或密码错误",
-            "spendTime": "0.229 s",
-            "status": "成功",
+            "spendTime": "0.245 s",
+            "status": "失败",
+            "log": [
+                "",
+                "Traceback (most recent call last):\n",
+                "  File \"/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/unittest/case.py\", line 59, in testPartExecutor\n    yield\n",
+                "  File \"/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/unittest/case.py\", line 605, in run\n    testMethod()\n",
+                "  File \"/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/ddt.py\", line 145, in wrapper\n    return func(self, *args, **kwargs)\n",
+                "  File \"/Users/wawa/Desktop/code/api_automate_test/src/testProject/test_ddsf/a_login1_test.py\", line 59, in test_ByPassword\n    self.assertEqual(True, checkOut(res, self.expect))\n",
+                "  File \"/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/unittest/case.py\", line 829, in assertEqual\n    assertion_func(first, second, msg=msg)\n",
+                "  File \"/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/unittest/case.py\", line 822, in _baseAssertEqual\n    raise self.failureException(msg)\n",
+                "AssertionError: True != False\n"
+            ]
+        },
+        {
+            "className": "HomeTest",
+            "methodName": "test_HomeInfo_1",
+            "description": "首页基本信息加载",
+            "spendTime": "0.00739 s",
+            "status": "错误",
+            "log": [
+                "",
+                "Traceback (most recent call last):\n",
+                "  File \"/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/unittest/case.py\", line 59, in testPartExecutor\n    yield\n",
+                "  File \"/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/unittest/case.py\", line 605, in run\n    testMethod()\n",
+                "  File \"/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/ddt.py\", line 145, in wrapper\n    return func(self, *args, **kwargs)\n",
+                "  File \"/Users/wawa/Desktop/code/api_automate_test/src/testProject/test_ddsf/b_home1_test.py\", line 57, in test_HomeInfo\n    self.data_num, self.desc_num, self.relateData_num, self.expect_num, value)\n",
+                "  File \"/Users/wawa/Desktop/code/api_automate_test/src/common/runTest.py\", line 144, in start\n    re_list_header = re.findall(re_str, self.headers)\n",
+                "  File \"/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/re.py\", line 222, in findall\n    return _compile(pattern, flags).findall(string)\n",
+                "TypeError: expected string or bytes-like object\n"
+            ]
+        },
+        {
+            "className": "HomeTest",
+            "methodName": "test_ProfileInfo_1",
+            "description": "商服个人信息",
+            "spendTime": "0.00162 s",
+            "status": "跳过",
             "log": [
                 ""
+            ]
+        },
+        {
+            "className": "HomeTest",
+            "methodName": "test_SchedulePlanInfo_1",
+            "description": "日程安排",
+            "spendTime": "0.00249 s",
+            "status": "错误",
+            "log": [
+                "",
+                "Traceback (most recent call last):\n",
+                "  File \"/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/unittest/case.py\", line 59, in testPartExecutor\n    yield\n",
+                "  File \"/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/unittest/case.py\", line 605, in run\n    testMethod()\n",
+                "  File \"/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/ddt.py\", line 145, in wrapper\n    return func(self, *args, **kwargs)\n",
+                "  File \"/Users/wawa/Desktop/code/api_automate_test/src/testProject/test_ddsf/b_home1_test.py\", line 105, in test_SchedulePlanInfo\n    self.data_num, self.desc_num, self.relateData_num, self.expect_num, value)\n",
+                "  File \"/Users/wawa/Desktop/code/api_automate_test/src/common/runTest.py\", line 178, in start\n    re_list_header = re.findall(re_str, self.headers)\n",
+                "  File \"/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/re.py\", line 222, in findall\n    return _compile(pattern, flags).findall(string)\n",
+                "TypeError: expected string or bytes-like object\n"
+            ]
+        },
+        {
+            "className": "HomeTest",
+            "methodName": "test_StaffMessage_1",
+            "description": "StaffMessage接口",
+            "spendTime": "0.0018 s",
+            "status": "错误",
+            "log": [
+                "",
+                "Traceback (most recent call last):\n",
+                "  File \"/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/unittest/case.py\", line 59, in testPartExecutor\n    yield\n",
+                "  File \"/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/unittest/case.py\", line 605, in run\n    testMethod()\n",
+                "  File \"/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/ddt.py\", line 145, in wrapper\n    return func(self, *args, **kwargs)\n",
+                "  File \"/Users/wawa/Desktop/code/api_automate_test/src/testProject/test_ddsf/b_home1_test.py\", line 81, in test_StaffMessage\n    self.data_num, self.desc_num, self.relateData_num, self.expect_num, value)\n",
+                "  File \"/Users/wawa/Desktop/code/api_automate_test/src/common/runTest.py\", line 144, in start\n    re_list_header = re.findall(re_str, self.headers)\n",
+                "  File \"/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/re.py\", line 222, in findall\n    return _compile(pattern, flags).findall(string)\n",
+                "TypeError: expected string or bytes-like object\n"
+            ]
+        },
+        {
+            "className": "HomeTest",
+            "methodName": "test_StaffOrg_1",
+            "description": "StaffOrg接口",
+            "spendTime": "0.00408 s",
+            "status": "错误",
+            "log": [
+                "",
+                "Traceback (most recent call last):\n",
+                "  File \"/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/unittest/case.py\", line 59, in testPartExecutor\n    yield\n",
+                "  File \"/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/unittest/case.py\", line 605, in run\n    testMethod()\n",
+                "  File \"/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/ddt.py\", line 145, in wrapper\n    return func(self, *args, **kwargs)\n",
+                "  File \"/Users/wawa/Desktop/code/api_automate_test/src/testProject/test_ddsf/b_home1_test.py\", line 93, in test_StaffOrg\n    self.data_num, self.desc_num, self.relateData_num, self.expect_num, value)\n",
+                "  File \"/Users/wawa/Desktop/code/api_automate_test/src/common/runTest.py\", line 178, in start\n    re_list_header = re.findall(re_str, self.headers)\n",
+                "  File \"/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/re.py\", line 222, in findall\n    return _compile(pattern, flags).findall(string)\n",
+                "TypeError: expected string or bytes-like object\n"
             ]
         }
     ],
     "testName": "多多商服接口自动化测试",
-    "testAll": 5,
-    "testFail": 0,
-    "beginTime": "2019-09-04 13:29:42",
+    "testAll": 10,
+    "testFail": 5,
+    "beginTime": "2019-09-06 21:11:17",
     "totalTime": "1s",
-    "testSkip": 1,
+    "testSkip": 2,
     "testError": 0
 };
     function details(obj) {
