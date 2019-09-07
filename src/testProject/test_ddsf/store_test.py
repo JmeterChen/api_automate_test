@@ -7,7 +7,7 @@ import inspect
 from src.common.read_data import ReadData
 import ddt
 import sys
-from src.common.runTest import RunTest
+from src.common.runTest import *
 
 
 count = 0
@@ -27,7 +27,7 @@ class StoreTest(RunTest):
 	@classmethod
 	def setUpClass(cls):
 		cls.env_num = cls.a.get_num_name("环境")
-		cls.api_name = cls.a.get_num_name("接口名称")
+		cls.apiName_num = cls.a.get_num_name("接口名称")
 		cls.method_num = cls.a.get_num_name("请求方法")
 		cls.headers_num = cls.a.get_num_name("请求头")
 		cls.para_num = cls.a.get_num_name("请求参数")
@@ -44,6 +44,31 @@ class StoreTest(RunTest):
 	def tearDown(self):
 		self.logger.debug("...end %s case %s...".center(80, '#') % (self.fieldname, count))
 	
+	# @ddt.data(*a.get_data_by_api(fieldname, "StoreList"))
+	# def test_StoreList(self, value):
+	# 	"""门店列表"""
+	# 	# 通过函数名获取apiName参数的值
+	# 	self.apiName = (inspect.stack()[0][3])[5:]
+	# 	env = value[self.env_num]
+	# 	url = self.a.get_domains()[env] + self.a.get_apiPath(self.fieldname, self.apiName)
+	# 	result = self.start(self.isSkip_num, self.method_num, url, self.para_num, self.data_num, self.api_name,
+	# 	                    self.desc_num, self.relateData_num, value, headers=value[self.headers_num])
+	# 	# result = requests.post(url=url, json=value[self.data_num])
+	# 	res = result.json()
+	# 	self.logger.debug(f"响应结果         :{res}")
+	# 	self.logger.debug(f"预期结果         :{value[self.expect_num]}")
+	# 	# print(res["code"])
+	# 	self.assertEqual(res["code"], value[self.expect_num]["code"])
+	# 	data = value[self.data_num]
+	# 	if res["data"]["results"]:
+	# 		if res["data"]["totalRecord"] >= data[0]["pageSize"]:
+	# 			self.assertEqual(len(res["data"]["results"]), data[0]["pageSize"])
+	# 		else:
+	# 			self.assertEqual(len(res["data"]["results"]), res["data"]["totalRecord"])
+	# 	else:
+	# 		self.assertEqual(res["data"]["results"], None)
+	# 	print(res["data"]["totalRecord"])
+	
 	@ddt.data(*a.get_data_by_api(fieldname, "StoreList"))
 	def test_StoreList(self, value):
 		"""门店列表"""
@@ -51,20 +76,7 @@ class StoreTest(RunTest):
 		self.apiName = (inspect.stack()[0][3])[5:]
 		env = value[self.env_num]
 		url = self.a.get_domains()[env] + self.a.get_apiPath(self.fieldname, self.apiName)
-		result = self.start(self.isSkip_num, self.method_num, url, self.para_num, self.data_num, self.api_name,
-		                    self.desc_num, self.relateData_num, value, headers=value[self.headers_num])
-		# result = requests.post(url=url, json=value[self.data_num])
-		res = result.json()
-		self.logger.debug(f"响应结果         :{res}")
-		self.logger.debug(f"预期结果         :{value[self.expect_num]}")
-		# print(res["code"])
-		self.assertEqual(res["code"], value[self.expect_num]["code"])
-		data = value[self.data_num]
-		if res["data"]["results"]:
-			if res["data"]["totalRecord"] >= data[0]["pageSize"]:
-				self.assertEqual(len(res["data"]["results"]), data[0]["pageSize"])
-			else:
-				self.assertEqual(len(res["data"]["results"]), res["data"]["totalRecord"])
-		else:
-			self.assertEqual(res["data"]["results"], None)
-		print(res["data"]["totalRecord"])
+		# 调用接口发起请求
+		res = self.start(self.isSkip_num, self.apiName_num, url, self.method_num, self.headers_num, self.para_num,
+		                    self.data_num, self.desc_num, self.relateData_num, self.expect_num, value)
+		self.assertEqual(True, checkOut(res, self.expect))

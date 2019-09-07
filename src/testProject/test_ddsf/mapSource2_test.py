@@ -9,7 +9,7 @@ import inspect
 from src.common.read_data import ReadData
 import ddt
 import sys
-from src.common.runTest import RunTest
+from src.common.runTest import *
 
 
 count = 0
@@ -29,7 +29,7 @@ class MapSourceTest(RunTest):
 	@classmethod
 	def setUpClass(cls):
 		cls.env_num = cls.a.get_num_name("环境")
-		cls.api_name = cls.a.get_num_name("接口名称")
+		cls.apiName_num = cls.a.get_num_name("接口名称")
 		cls.method_num = cls.a.get_num_name("请求方法")
 		cls.headers_num = cls.a.get_num_name("请求头")
 		cls.para_num = cls.a.get_num_name("请求参数")
@@ -53,14 +53,10 @@ class MapSourceTest(RunTest):
 		self.apiName = (inspect.stack()[0][3])[5:]
 		env = value[self.env_num]
 		url = self.a.get_domains()[env] + self.a.get_apiPath(self.fieldname, self.apiName)
-		result = self.start(self.isSkip_num, self.method_num, url, self.para_num, self.data_num, self.api_name,
-		                    self.desc_num, self.relateData_num, value, headers=value[self.headers_num])
-
-		res = result.json()
-		self.logger.debug(f"响应结果         :{res}")
-		self.logger.debug(f"预期结果         :{value[self.expect_num]}")
-		# print(res["code"])
-		self.assertEqual(res["code"], value[self.expect_num]["code"])
+		# 调用接口发起请求
+		res = self.start(self.isSkip_num, self.apiName_num, url, self.method_num, self.headers_num, self.para_num,
+		                    self.data_num, self.desc_num, self.relateData_num, self.expect_num, value)
+		self.assertEqual(True, checkOut(res, self.expect))
 
 	@ddt.data(*a.get_data_by_api(fieldname, "CitySection"))
 	def test_CitySection(self, value):
@@ -69,13 +65,10 @@ class MapSourceTest(RunTest):
 		self.apiName = (inspect.stack()[0][3])[5:]
 		env = value[self.env_num]
 		url = self.a.get_domains()[env] + self.a.get_apiPath(self.fieldname, self.apiName)
-		result = self.start(self.isSkip_num, self.method_num, url, self.para_num, self.data_num, self.api_name,
-		                    self.desc_num, self.relateData_num, value, headers=value[self.headers_num])
-		# result = requests.post(url=url, json=value[self.data_num])
-		res = result.json()
-		self.logger.debug(f"响应结果         :{res}")
-		self.logger.debug(f"预期结果         :{value[self.expect_num]}")
-		self.assertEqual(res["code"], value[self.expect_num]["code"])
+		# 调用接口发起请求
+		res = self.start(self.isSkip_num, self.apiName_num, url, self.method_num, self.headers_num, self.para_num,
+		                    self.data_num, self.desc_num, self.relateData_num, self.expect_num, value)
+		self.assertEqual(True, checkOut(res, self.expect))
 
 	@ddt.data(*a.get_data_by_api(fieldname, "StoreInfoList"))
 	def test_StoreInfoList(self, value):
@@ -84,13 +77,10 @@ class MapSourceTest(RunTest):
 		self.apiName = (inspect.stack()[0][3])[5:]
 		env = value[self.env_num]
 		url = self.a.get_domains()[env] + self.a.get_apiPath(self.fieldname, self.apiName)
-		result = self.start(self.isSkip_num, self.method_num, url, self.para_num, self.data_num, self.api_name,
-		                    self.desc_num, self.relateData_num, value, headers=value[self.headers_num])
-		# result = requests.post(url=url, json=value[self.data_num])
-		res = result.json()
-		self.logger.debug(f"响应结果         :{res}")
-		self.logger.debug(f"预期结果         :{value[self.expect_num]}")
-		self.assertEqual(res["code"], value[self.expect_num]["code"])
+		# 调用接口发起请求
+		res = self.start(self.isSkip_num, self.apiName_num, url, self.method_num, self.headers_num, self.para_num,
+		                    self.data_num, self.desc_num, self.relateData_num, self.expect_num, value)
+		self.assertEqual(True, checkOut(res, self.expect))
 
 	@ddt.data(*a.get_data_by_api(fieldname, "StoreByCodition"))
 	def test_StoreByCodition(self, value):
@@ -99,13 +89,10 @@ class MapSourceTest(RunTest):
 		self.apiName = (inspect.stack()[0][3])[5:]
 		env = value[self.env_num]
 		url = self.a.get_domains()[env] + self.a.get_apiPath(self.fieldname, self.apiName)
-		result = self.start(self.isSkip_num, self.method_num, url, self.para_num, self.data_num, self.api_name,
-		                    self.desc_num, self.relateData_num, value, headers=value[self.headers_num])
-		# result = requests.post(url=url, json=value[self.data_num])
-		res = result.json()
-		self.logger.debug(f"响应结果         :{res}")
-		self.logger.debug(f"预期结果         :{value[self.expect_num]}")
-		self.assertEqual(res["code"], value[self.expect_num]["code"])
+		# 调用接口发起请求
+		res = self.start(self.isSkip_num, self.apiName_num, url, self.method_num, self.headers_num, self.para_num,
+		                    self.data_num, self.desc_num, self.relateData_num, self.expect_num, value)
+		self.assertEqual(True, checkOut(res, self.expect))
 
 if __name__ == '__main__':
 	unittest.main()
