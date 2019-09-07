@@ -14,7 +14,12 @@ sss = {}
 
 
 # 定义断言函数
-def checkOut(res, exp):
+def checkOut(res, exp) -> bool:
+	"""
+	:param res:        接口返回结果
+	:param exp:        接口预期结果
+	:return:           用于预期结果和实际结果断言，返回bool值
+	"""
 	for _key in exp:
 		value = [_key, exp[_key]]
 		check = jsonpath(res, expr=f"$..{value[0]}")

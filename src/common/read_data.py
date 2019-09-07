@@ -9,6 +9,10 @@ import xlrd
 
 class ReadData:
 	def __init__(self, project=None):
+		"""
+		:param project:  根据参数获得项目名称去读取excle中的sheet页，以及json中的数据
+		"""
+		
 		# 获得项目根目录
 		root_path = os.path.abspath(os.path.join(__file__, "../../.."))
 		# xlsx表格数据地址
@@ -44,6 +48,10 @@ class ReadData:
 	
 	# 根据传入表头名称返回对应的列数
 	def get_num_name(self, title_name) -> int:
+		"""
+		:param title_name:          excle表头中的字段名称
+		:return:                    excle表头中该字段所在列数
+		"""
 		for name in self.get_titleData():
 			if title_name == name:
 				return self.get_titleData().index(title_name)
@@ -72,6 +80,10 @@ class ReadData:
 		
 	# 根据传入的模块名称获取模块测试数据
 	def get_module_data(self, fieldName=None) -> list:
+		"""
+		:param fieldName:          根据传入的模块名称筛选该模块的测试数据
+		:return:                   返回该模块筛选出来的测试数据
+		"""
 		sheet_data = self.get_sheetData()
 		fieldName_num = self.get_num_name("模块名")
 		# headers_num = self.get_num_name("请求头")
@@ -99,6 +111,11 @@ class ReadData:
 	
 	# 根据传入的模块名称和接口名称过滤出需要的ddt测试数据
 	def get_data_by_api(self, fieldName=None, api_name=None) -> list:
+		"""
+		:param fieldName:         模块名称，默认为None
+		:param api_name:          接口名称，默认为None
+		:return:                  根据模块名称和接口名称进行二次筛选，返回用于单个接口进行ddt的测试数据
+		"""
 		test_data_list = []
 		# 根据传入的模块名称获取模块测试数据
 		data = self.get_module_data(fieldName=fieldName)
@@ -119,6 +136,11 @@ class ReadData:
 	
 	# 根据传入的模块名，接口名返回接口路径，后面需要和domain去拼接
 	def get_apiPath(self, fieldName=None, apiName=None):
+		"""
+		:param fieldName:         模块名称，默认为None
+		:param apiName:           接口名称，默认为None
+		:return:                  根据传入的模块名和接口名进行接口地址拼接，返回接口地址URL
+		"""
 		return self.json_data[self.pro][fieldName][apiName]
 
 
