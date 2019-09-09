@@ -10,7 +10,6 @@ import os, time
 
 
 def start():
-
 	tmp = os.sep
 	
 	suites_dir = os.path.abspath(os.path.join(os.getcwd(), "..%s.." % tmp)) + tmp + tmp.join(['src', 'testProject',
@@ -30,7 +29,7 @@ def start():
 				raise
 			# time.sleep might help here
 			pass
-		
+	
 	reportFileName = now + '_result.html'
 	
 	with open(reportDir + tmp + reportFileName, "wb"):
@@ -38,5 +37,9 @@ def start():
 		res = beaRep.report(filename=reportFileName, description='多多商服接口自动化测试', report_dir=reportDir)
 	return res
 
+
 if __name__ == '__main__':
 	start()
+
+
+# TODO  根据不同项目启动
