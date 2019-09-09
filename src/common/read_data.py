@@ -5,37 +5,70 @@
 import os
 import json
 import xlrd
+import logging
+from src.common.readLogger import ReadLogger
 
 
 class ReadData:
-	def __init__(self, project=None):
+	def __init__(self, project=None, jsonName=None):
 		"""
-		:param project:  根据参数获得项目名称去读取excle中的sheet页，以及json中的数据
+		:param project:    根据参数获得项目名称去读取excle中的sheet页，以及json中的数据, 默认为None
+		:param project:    根据参数获得指定json文件名称，去读取对应json中的数据, 默认为None
 		"""
 		
-		# 获得项目根目录
-		root_path = os.path.abspath(os.path.join(__file__, "../../.."))
-		# xlsx表格数据地址
-		form_path = r"%s/data/FDD接口测试用例.xlsx" % root_path
-		# json文件数据地址
-		json_path = r"%s/data/config.json" % root_path
+		# 获取logger和run_log
+		read_logger = ReadLogger('getData')
+		# 获取logger容器
+		self.logger = read_logger.get_logger()
 		
-		# 读取xlsx表格数据
-		self.workbook = xlrd.open_workbook(form_path)  # 整个xlxs数据对象
-		self.sheetNames = self.workbook.sheet_names()  # 页签名称列表
-		# 生成一个也签名称对应也签对象的字典
-		self.form_data = {}
-		for sheet in self.sheetNames:
-			self.form_data[sheet] = self.workbook.sheet_by_name(sheet)
-		# 读取json数据文件中的内容
-		with open(json_path, "r", encoding="utf-8") as j:
-			self.json_data = json.load(j)
-		# 判断传入的项目名称是否有效
-		if project and self.sheetNames.__contains__(project):
-			self.pro = project
-		else:
-			print("\033[1;31m请确认【%s】名称是否正确或在表格中补充【%s】项目信息！！！\033[0m" % (project, project))
-	
+		sep = os.sep
+		try:
+			# 获得项目根目录
+			root_path = os.path.abspath(os.path.join(__file__, f"..{sep}..{sep}.."))
+			self.logger.info(f"获取项目根目录正常:{root_path}")
+			# xlsx表格数据地址
+			form_path = f"{root_path}{sep}data{sep}FDD接口测试用例.xlsx"
+			self.logger.info(f"获取项目根正常:{form_path}")
+		
+		# # 获得项目根目录
+		# root_path = os.path.abspath(os.path.join(__file__, f"..{sep}..{sep}.."))
+		# # xlsx表格数据地址
+		# form_path = f"{root_path}{sep}data{sep}FDD接口测试用例.xlsx"
+		
+			# 读取xlsx表格数据
+			self.workbook = xlrd.open_workbook(form_path)  # 整个xlxs数据对象
+			self.logger.info(f"读取xlsx表格数据正常:{self.workbook}")
+			self.sheetNames = self.workbook.sheet_names()  # 页签名称列表
+			self.logger.info(f"获取页签名称列表正常:{self.sheetNames}")
+			# 生成一个页签名称对应页签对象的字典
+			self.form_data = {}
+			for sheet in self.sheetNames:
+				self.form_data[sheet] = self.workbook.sheet_by_name(sheet)
+			self.logger.info(f"获取页签名称对应页签对象字典正常:{self.form_data}")
+			
+			# 判断传入的项目名称是否有效
+			if project and self.sheetNames.__contains__(project):
+				self.pro = project
+				self.logger.info(f"传入项目参数有效:{self.pro}")
+			else:
+				print("\033[1;31m请确认【%s】名称是否正确或在表格中补充【%s】项目信息！！！\033[0m" % (project, project))
+				self.logger.info(f"传入项目参数无效:{project}")
+		
+			# 根据判断是否有传入jsonName进行json文件读取
+			if jsonName:
+				# json文件数据地址
+				json_path = f"{root_path}{sep}data{sep}jsonFiles{sep}{jsonName}.json"
+				self.logger.info(f"已传入json参数，其地址为:{json_path}")
+			else:
+				# json文件数据地址
+				json_path = f"{root_path}{sep}data{sep}config.json"
+				self.logger.info(f"未传入json参数，使用的是默认地址为:{json_path}")
+				# 读取json数据文件中的内容
+				with open(json_path, "r", encoding="utf-8") as j:
+					self.json_data = json.load(j)
+		except Exception as err:
+			logging.error("文件读取出错")
+			
 	# 根据传入的项目名称获取表格中页签对象
 	def get_sheetData(self) -> xlrd.sheet.Sheet:
 		sheet_data = self.form_data[self.pro]
