@@ -9,6 +9,7 @@ from src.common.readLogger import ReadLogger
 from jsonpath import jsonpath
 import time
 import re
+import sys
 
 sss = {}
 
@@ -38,11 +39,11 @@ class RunTest(unittest.TestCase, unittest.SkipTest):
 		super(RunTest, self).__init__(methodName)
 		
 		# 获取logger和run_log
-		read_logger = ReadLogger()
+		read_logger = ReadLogger('run')
 		# 获取logger容器
 		self.logger = read_logger.get_logger()
-		# 获取日志文件路径
-		self.run_log_src = read_logger.get_run_log()
+		# # 获取日志文件路径
+		# self.run_log_src = read_logger.get_run_log()
 		
 		# 使用自封装requests
 		self.method = RunMethod()
@@ -107,15 +108,17 @@ class RunTest(unittest.TestCase, unittest.SkipTest):
 			self.logger.debug(f"请求参数         :{params}")
 		except Exception as e:
 			self.logger.error('错误信息   : %s' % e)
-		
 		# global DATA
 		global sss
 		# 根据是否跳过参数判断用例是否执行
 		if isSkip and isSkip != "否":
+			self.logger.debug(f"是否跳过         :{isSkip}")
 			self.skipTest('skip case')
 		# 如果该接口关联类型只是关联输出
 		elif isRelate and isRelate["relateType"] == "relateOut":
 			relateData = isRelate["relateData"]
+			self.logger.debug("是否跳过         :否")
+			self.logger.debug(f"数据依赖类型      :{isRelate['relateType']}")
 			self.logger.debug(f"header          :{self.headers}")
 			self.logger.debug(f"请求体           :{self.body}")
 			response = self.method.run_main(url, method, self.headers, params, self.body, **kw)
@@ -168,6 +171,8 @@ class RunTest(unittest.TestCase, unittest.SkipTest):
 			self.headers = eval(self.headers)
 			self.body = eval(self.body)
 			self.expect = eval(self.expect)
+			self.logger.debug("是否跳过         :否")
+			self.logger.debug(f"数据依赖类型      :{isRelate['relateType']}")
 			self.logger.debug(f"header          :{self.headers}")
 			self.logger.debug(f"请求体           :{self.body}")
 			response = self.method.run_main(url, method,  self.headers, params, self.body, **kw)
@@ -205,6 +210,8 @@ class RunTest(unittest.TestCase, unittest.SkipTest):
 			self.headers = eval(self.headers)
 			self.body = eval(self.body)
 			self.expect = eval(self.expect)
+			self.logger.debug("是否跳过         :否")
+			self.logger.debug(f"数据依赖类型      :{isRelate['relateType']}")
 			self.logger.debug(f"header          :{self.headers}")
 			self.logger.debug(f"请求体           :{self.body}")
 			relateData = isRelate["relateData"]
@@ -229,6 +236,7 @@ class RunTest(unittest.TestCase, unittest.SkipTest):
 			# print(sss)
 			return res
 		else:
+			self.logger.debug("是否跳过         :否")
 			self.logger.debug(f"请求体           :{self.body}")
 			response = self.method.run_main(url, method, self.headers, params, self.body, **kw)
 			try:

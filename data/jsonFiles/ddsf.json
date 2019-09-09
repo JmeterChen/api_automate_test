@@ -1,0 +1,90 @@
+{
+  "ddsf":{
+    "robot_data":{
+      "robot_url": "https://oapi.dingtalk.com/robot/send?access_token=d745ca46d735e68906baa0d065d6916377d374f083c880841151d2c004e9e654",
+      "mobile":["18682236985"]
+    },
+    "domain":{
+      "test": "https://as-web.fangdd.net",
+      "pre" : "https://as-web.fangdd.com.cn",
+      "prod" : "https://as-web.fangdd.com"
+    },
+    "Login":{
+        "ByPassword": "/ioux/loginByPassword",
+        "ByVerifyCode": "/data/listStaffOrg"
+      },
+    "Home" :{
+      "HomeInfo": "/data/getHomeInfo",
+      "ProfileInfo": "/data/getProfileInfo",
+      "StaffMessage":"/data/getStaffMessage",
+      "StaffOrg":"/data/listStaffOrg",
+      "SchedulePlanInfo":"/data/searchSchedulePlanInfo",
+      "CityList": "/ioux/queryCityList"
+    },
+    "Store":{
+      "StoreList":"/data/getStoreList",
+      "OrgStore":"/data/getOrgStoreResource",
+      "listAllStaff":"/data/listAllStaffByDepId",
+      "OrgTree":"/data/getOrgTree",
+      "RegionByCityId":"/data/getRegionByCityId"
+      },
+    "Company":{
+      "CompanyList": "/data/getCompanyList"
+    },
+    "Agent":{
+      "listAgent": "/data/listAgentByCodition"
+    },
+    "Myself":{},
+    "NewHouse":{
+      "listCity": "/data/listCity",
+      "listHouse": "/data/listHouseByCondition",
+      "XfdkStoreData": "/data/getXfdkStoreData",
+      "HouseDetail": "/data/getHouseDetail",
+      "ConfigList": "/data/activityConfigList",
+      "ShareTemplate": "/data/getShareTemplate"
+    },
+    "WorkRank":{
+      "PullNewAgentRank": "/data/getPullNewAgentRank",
+      "PullAgentInfo": "/data/searchPullAgentInfo",
+      "ActivityAchievement": "/data/getActivityAchievement"
+    },
+    "Datas":{
+      "XfdkAchievementData": "/data/getXfdkAchievementData",
+      "XfdkStoreData":"/data/getXfdkStoreData",
+      "searchLoupan":"/data/searchLoupan",
+      "AchievementStat":"/ioux/getAchievementStat",
+      "ActiveAgentNum":"/ioux/getActiveAgentNum",
+      "NewHouseGuideData":"/ioux/getNewHouseGuideData",
+      "AchievementList":"/ioux/getAchievementList"
+    },
+    "Orders":{
+      "orders": "/api/orders",
+      "contract":"/api/contract",
+      "contract-operate-logs":""
+    },
+    "Clues":{
+      "clueStaff":"/data/clueStaffPotentials",
+      "depDetail":"/data/depDetail",
+      "KPIByDepId":"/data/getKPIByDepId",
+      "StaffKPIDetail":"/data/getStaffKPIDetail",
+      "listAchievement":"/data/listAchievement"
+    },
+    "VisitRecord":{
+      "RecordPage":"/data/listVisitRecordPage"
+    },
+    "MapSource":{
+      "CityDistrict":"/data/getCityDistrictInfoList",
+      "CitySection": "/data/getCitySectionInfoList",
+      "StoreInfoList": "/data/getStoreInfoList",
+      "StoreByCodition":"/data/listStoreByCodition"
+    },
+    "AgentDynamic":{
+      "AgentDynamic": "/data/fetchAgentDynamicList",
+      "DynamicDetail": "/data/fetchDynamicDetail",
+      "StoreList":"/data/getStoreList",
+      "StoreByStoreId":"/data/getStoreByStoreId",
+      "StoreMessage": "/data/getStoreMessage"
+    }
+  },
+  "ddxf":{}
+}  
