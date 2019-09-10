@@ -82,7 +82,7 @@
  6. 上述脚本中以模块创建类，格式如XXXTest；
  7. 上述类中以接口名创建用例，格式为test_xxx；
 
- ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190909201251465.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zOTM4NjE0NQ==,size_16,color_FFFFFF,t_70)
+ ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190909201251465.jpeg)
  
  #### 待补充
     1.接入钉钉系统函数
