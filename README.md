@@ -47,8 +47,8 @@
         -  按项目划分，一个项目json模块；
             ![json文件](https://img-blog.csdnimg.cn/20190909192057718.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zOTM4NjE0NQ==,size_16,color_FFFFFF,t_70)
    #### output
-    - logs (可扩展)
-        ==日志来源于日志配置文件，大家可以不用管，直接套用即可==
+    - logs (可扩展)  
+        <span color='yellow'>日志来源于日志配置文件，大家可以不用管，直接套用即可</span>
          -  run.log ：默认不传入日志参数时自动生成的用例运行日志记录；
          -  runTest.log ：根据传入的日志参数生成对应的操作日志记录；
          -  getData.log ：用做获取数据时操作步骤日志记录；   
@@ -57,16 +57,17 @@
 
 #### src
 
- 1. common
+1. common
 
-    `该目录下文件夹均为自定义组件模块，大家直接套用即可，每个函数/类均有解释说明`
+	`该目录下文件夹均为自定义组件模块，大家直接套用即可，每个函数/类均有解释说明`
+	
     模块/包名 | 作用 | 备注
     ---|--- | ---
     |  BeautifulReport| 生成新版测试报告 | （源码被修改了）直接使用即可
-    |  read_data.py| 读取excle/json文件中的测试用例数据 |  注意上述data方案
-    |  readaLogger.py| 读取日志配置文件并按配置生成日志 |  直接使用即可
-    |  runMethod.py| 根据测试数据重新定义http常见请求 |  直接使用即可
-    |  runTest.py | 用例基础信息写入日志  | 直接使用即可 |
+	|  read_data.py| 读取excle/json文件中的测试用例数据 |  注意上述data方案
+	|  readaLogger.py| 读取日志配置文件并按配置生成日志 |  直接使用即可
+	|  runMethod.py| 根据测试数据重新定义http常见请求 |  直接使用即可
+	|  runTest.py | 用例基础信息写入日志  | 直接使用即可 |
 
 
  2. mainProgram
@@ -81,7 +82,8 @@
  6. 上述脚本中以模块创建类，格式如XXXTest；
  7. 上述类中以接口名创建用例，格式为test_xxx；
 
- ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190909201251465.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zOTM4NjE0NQ==,size_16,color_FFFFFF,t_70)
+ ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190909201251465.jpeg)
+ 
  #### 待补充
     1.接入钉钉系统函数
     2.分项目启动脚本
