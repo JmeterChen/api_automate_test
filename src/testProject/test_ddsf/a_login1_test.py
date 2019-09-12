@@ -9,7 +9,7 @@ from src.common.read_data import ReadData
 import ddt
 import sys
 from src.common.runTest import *
-
+from src.common.dingDing import send_ding
 
 count = 0
 
@@ -56,8 +56,16 @@ class LoginTest(RunTest):
 		# 调用接口发起请求
 		res = self.start(self.isSkip_num, self.apiName_num, url, self.method_num, self.headers_num, self.para_num,
 		                    self.data_num, self.desc_num, self.relateData_num, self.expect_num, value)
-		self.assertEqual(True, checkOut(res, self.expect))
-		
+		try:
+			self.assertEqual(True, checkOut(res, self.expect))
+			self.logger.info("测试结果         :测试通过！")
+		except Exception as err:
+			self.logger.error("测试结果         :测试失败！")
+			json_dict = self.a.json_data[self.project]["robot_data"]
+			robot_url = json_dict["robot_url"]
+			mobile = json_dict["mobile"]
+			send_ding(robot_url, mobile, content=str(err))
+			raise err
 		
 if __name__ == '__main__':
 	unittest.main()

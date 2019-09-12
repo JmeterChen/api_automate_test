@@ -1,7 +1,0 @@
-'09/09/2019 03:28:11 PM' - INFO - 获取项目根目录正常:/Users/wawa/Desktop/code/api_automate_test
-'09/09/2019 03:28:11 PM' - INFO - 获取项目根正常:/Users/wawa/Desktop/code/api_automate_test/data/FDD接口测试用例.xlsx
-'09/09/2019 03:28:11 PM' - INFO - 读取xlsx表格数据正常:<xlrd.book.Book object at 0x10d7b80b8>
-'09/09/2019 03:28:11 PM' - INFO - 获取页签名称列表正常:['ddsf', '多多新房']
-'09/09/2019 03:28:11 PM' - INFO - 获取页签名称对应页签对象字典正常:{'ddsf': <xlrd.sheet.Sheet object at 0x10d7d2eb8>, '多多新房': <xlrd.sheet.Sheet object at 0x10d7d2ef0>}
-'09/09/2019 03:28:11 PM' - INFO - 传入项目参数有效:ddsf
-'09/09/2019 03:28:11 PM' - INFO - 未传入json参数，使用的是默认地址为:/Users/wawa/Desktop/code/api_automate_test/data/config.json

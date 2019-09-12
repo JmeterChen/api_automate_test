@@ -9,7 +9,7 @@ from src.common.readLogger import ReadLogger
 from jsonpath import jsonpath
 import time
 import re
-import sys
+from src.common.dingDing import send_ding
 
 sss = {}
 
@@ -39,7 +39,7 @@ class RunTest(unittest.TestCase, unittest.SkipTest):
 		super(RunTest, self).__init__(methodName)
 		
 		# 获取logger和run_log
-		read_logger = ReadLogger('run')
+		read_logger = ReadLogger()
 		# 获取logger容器
 		self.logger = read_logger.get_logger()
 		# # 获取日志文件路径
@@ -128,6 +128,7 @@ class RunTest(unittest.TestCase, unittest.SkipTest):
 				self.logger.debug(f"响应结果         :{res}")
 				self.logger.debug(f"预期结果         :{self.expect}")
 			except Exception as err:
+				self.logger.info(f" 实际结果为: {response} ")
 				self.logger.error(str(err))
 			else:
 				for _dict in relateData:
@@ -181,6 +182,7 @@ class RunTest(unittest.TestCase, unittest.SkipTest):
 				self.logger.debug(f"响应结果         :{res}")
 				self.logger.debug(f"预期结果         :{self.expect}")
 			except Exception as err:
+				self.logger.info(f" 实际结果为: {response} ")
 				self.logger.error(str(err))
 			# print(data)
 			return res
@@ -221,6 +223,7 @@ class RunTest(unittest.TestCase, unittest.SkipTest):
 				self.logger.debug(f"响应结果         :{res}")
 				self.logger.debug(f"预期结果         :{self.expect}")
 			except Exception as err:
+				self.logger.info(f" 实际结果为: {response} ")
 				self.logger.error(str(err))
 			else:
 				for _dict in relateData:
@@ -244,5 +247,6 @@ class RunTest(unittest.TestCase, unittest.SkipTest):
 				self.logger.debug(f"响应结果         :{res}")
 				self.logger.debug(f"预期结果         :{self.expect}")
 			except Exception as err:
+				self.logger.info(f" 实际结果为: {response} ")
 				self.logger.error(str(err))
 			return res
