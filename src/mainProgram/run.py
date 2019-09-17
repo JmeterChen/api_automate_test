@@ -3,16 +3,23 @@
 # @Date : 2019-08-12
 
 
-import unittest
-from src.common.BeautifulReport import BeautifulReport
-# from BeautifulReport import BeautifulReport
-import os, time, json
-from src.common.dingDing import send_link
-from time import sleep
-import socket
+import os, sys
+import json
 
 sep = os.sep
 root_path = os.path.abspath(os.path.join(__file__, f"..{sep}..{sep}.."))
+sys.path.append(root_path)
+
+
+
+import unittest
+from src.common.BeautifulReport import BeautifulReport
+# from BeautifulReport import BeautifulReport
+from src.common.dingDing import send_link
+from time import sleep
+import socket
+import time
+
 
 # 获取本机计算机名称
 hostname = socket.gethostname()
@@ -26,8 +33,8 @@ def get_project_robot_URL(projectName=None):
 	with open(json_path, "r", encoding="utf-8") as j:
 		json_data = json.load(j)
 	return json_data
-	
-	
+
+
 def start(cases_dir=None):
 
 	# 判断是否有指定用例文件夹
@@ -37,13 +44,13 @@ def start(cases_dir=None):
 		robot_url = get_project_robot_URL(project_name)[project_name]["robot_data"]["robot_url"]
 		suites_dir = os.path.abspath(os.path.join(os.getcwd(), "..%s.." % sep)) + sep + sep.join(['src', 'testProject',
 		                                                                                          f'{project_dir}'])
-		suite = unittest.defaultTestLoader.discover(start_dir=suites_dir, pattern='*login1_test.py')
+		suite = unittest.defaultTestLoader.discover(start_dir=suites_dir, pattern='*_test.py')
 	else:
 		# 这里需要补充测试组机器人URL
 		robot_url = None
 		suites_dir = root_path + f'{sep}src{sep}testProject'
 		suite = unittest.defaultTestLoader.discover(start_dir=suites_dir)
-		
+
 	reportDirName = os.path.abspath(os.path.join(os.getcwd(), "..%s.." % sep)) + sep + 'output' + sep + 'report' + sep
 
 	now = time.strftime("%Y_%m_%d-%H_%M_%S")
@@ -73,10 +80,10 @@ def start(cases_dir=None):
 	os.chdir(res_path)
 	# 启动该目录下的服务
 	report_dir = 'report_{_now}'.format(_now=now)  # report_2019_09_11-21_02_55
-	result_url = "http://" + ip + f':9999{sep}{report_dir}{sep}{reportFileName}'
-	print(f'{sep}{reportFileName}')  # /2019_09_11-19_42_30_result.html
+	result_url = "http://" + ip + f':8686{sep}{report_dir}{sep}{reportFileName}'
+	# print(f'{sep}{reportFileName}')  # /2019_09_11-19_42_30_result.html
 	print(result_url)
-	send_link(robot_url, result_url, '多多商服接口自动化测试')
+	# send_link(robot_url, result_url, '多多商服接口自动化测试报告')
 	return res
 
 if __name__ == '__main__':
@@ -84,6 +91,6 @@ if __name__ == '__main__':
 	# get_project_robot_URL()
 	start('test_ddsf')
 	# print(os.getcwd())
-
-	
-# TODO  根据不同项目启动
+#
+#
+# # TODO  根据不同项目启动

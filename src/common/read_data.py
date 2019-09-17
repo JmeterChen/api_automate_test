@@ -64,8 +64,8 @@ class ReadData:
 				json_path = f"{root_path}{sep}data{sep}config.json"
 				self.logger.info(f"未传入json参数，默认地址为 :{json_path}")
 				# 读取json数据文件中的内容
-				with open(json_path, "r", encoding="utf-8") as j:
-					self.json_data = json.load(j)
+			with open(json_path, "r", encoding="utf-8") as j:
+				self.json_data = json.load(j)
 			self.logger.info(" 测试数据初始化 end! ".center(100, '='))
 		except Exception as err:
 			logging.error(" 测试数据文件读取出错! " + str(err))
@@ -79,6 +79,11 @@ class ReadData:
 	def get_titleData(self) -> list:
 		Table_head_list = self.get_sheetData().row_values(0)
 		return Table_head_list
+	
+	# 返回表格数据列表表头列数
+	def row_Nums(self) -> int:
+		num_rows = len(self.get_titleData())
+		return num_rows
 	
 	# 根据传入表头名称返回对应的列数
 	def get_num_name(self, title_name) -> int:
@@ -131,6 +136,7 @@ class ReadData:
 				for cell in sheet_data.row_values(num):
 					# 将请求体中原始json字符串的true、none、false替换为Python对应类型的字符
 					if cell == sheet_data.row_values(num)[body_num]:
+						print(cell)
 						cell = cell.replace("true", "True")
 						cell = cell.replace("none", "None")
 						cell = cell.replace("false", "False")

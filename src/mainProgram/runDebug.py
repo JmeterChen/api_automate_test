@@ -37,7 +37,7 @@ if __name__ == '__main__':
 	                                title='多多商服接口自动化测试报告', description="正式环境测试报告",
 	                                tester='Bo_lin Chen').run(suite)
 	# ###################################################################################################################
-	# suite = unittest.defaultTestLoader.discover(start_dir=os.path.abspath(os.path.join(os.getcwd(), "..%s.." % tmp)) +
+	# suite = unittest.defaultTestLoader.discover(start_dir=os._path.abspath(os.path.join(os.getcwd(), "..%s.." % tmp)) +
 	#                                                       tmp + 'src/testProject/test_ddsf', pattern='*test.py')
 	# reportName = os.path.abspath(os.path.join(os.getcwd(), "..%s.." % tmp)) + tmp + 'output' + tmp + 'report' + tmp
 	# print(reportName)

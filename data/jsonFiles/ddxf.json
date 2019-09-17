@@ -1,0 +1,16 @@
+{
+  "ddxf":{
+    "robot_data":{
+      "robot_url": "https://oapi.dingtalk.com/robot/send?access_token=c41f688c4e87a482459697c9675d7a12dc6ebfbec9c242ccf2b498bcece2644a",
+      "mobile":["18682236985"]
+    },
+    "domain":{
+      "test": "https://api-realtor.fangdd.net",
+      "pre" : "https://api-realtor.fangdd.com.cn",
+      "prod" : "https://api-realtor.fangdd.com"
+    },
+    "Login":{
+        "ByPassword": "/user/users/login"
+      }
+  }
+}

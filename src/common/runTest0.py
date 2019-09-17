@@ -1,6 +1,6 @@
 # -*- coding=utf-8 -*-
 # Author: BoLin Chen
-# @Date : 2019-09-12
+# @Date : 2019-08-12
 
 
 import unittest
@@ -9,7 +9,6 @@ from src.common.readLogger import ReadLogger
 from jsonpath import jsonpath
 import time
 import re
-from src.common.sign import SignKey
 
 
 sss = {}
@@ -25,10 +24,7 @@ def checkOut(res, exp) -> bool:
 	for _key in exp:
 		value = [_key, exp[_key]]
 		check = jsonpath(res, expr=f"$..{value[0]}")
-		if len(check) == 1 and check[0] == value[1]:
-			pass
-		elif len(check) > 1:
-			check.__contains__(value[1])
+		if check[0] == value[1] and check:
 			pass
 		else:
 			# print(f"断言失败！！！响应体中{_key}该字段的值为:{check[0]}，而预期结果为:{exp[_key]}")
@@ -38,6 +34,7 @@ def checkOut(res, exp) -> bool:
 
 
 class RunTest(unittest.TestCase, unittest.SkipTest):
+	
 	def __init__(self, methodName='runTest'):
 		super(RunTest, self).__init__(methodName)
 		
@@ -51,12 +48,11 @@ class RunTest(unittest.TestCase, unittest.SkipTest):
 		# 使用自封装requests
 		self.method = RunMethod()
 		
-		self.desc = ""  # 用例描述
+		self.desc = ""     # 用例描述
 		self.case_id = ""  # 用例id
 		self.body = None  # 因为存在接口数据依赖原因，所以这里会单独申明body
 		self.req_msg = {'request': {}, '\nresponse': {}}  # 用例基本信息
-	
-	# 后面用例编号会使用
+		# 后面用例编号会使用
 	
 	def skipTest(self, reason):
 		"""
@@ -73,7 +69,7 @@ class RunTest(unittest.TestCase, unittest.SkipTest):
 		"""
 		return self.desc
 	
-	def start(self, isSkip_num, apiName_num, url, method_num, headers_num, para_num, data_num, desc_num, isRelate_num,
+	def start(self, isSkip_num, apiName_num,  url, method_num, headers_num, para_num, data_num, desc_num, isRelate_num,
 	          expect_num, *args, **kw):
 		"""
 		用例运行主入口
@@ -89,7 +85,7 @@ class RunTest(unittest.TestCase, unittest.SkipTest):
 		:param args:            从excle表中获取到的每条用例的测试数据
 		:return:                API调用返回结果
 		"""
-		
+
 		isSkip = args[0][isSkip_num]
 		api_name = args[0][apiName_num]
 		method = args[0][method_num]
@@ -118,52 +114,13 @@ class RunTest(unittest.TestCase, unittest.SkipTest):
 		if isSkip and isSkip != "否":
 			self.logger.debug(f"是否跳过         :{isSkip}")
 			self.skipTest('skip case')
-		
+			
+	# =====注释到256行=============这里是之前的写法，后面将改为excle中需要被关联就关联，没写就全部拿去激活=======================
 		# 如果该接口关联类型只是关联输出
-		# elif isRelate and isRelate["relateType"] == "relateOut":
-		elif isRelate:
+		elif isRelate and isRelate["relateType"] == "relateOut":
 			relateData = isRelate["relateData"]
 			self.logger.debug("是否跳过         :否")
-			re_str = '#\w+#'
-			self.headers = str(self.headers)
-			self.body = str(self.body)
-			self.expect = str(self.expect)
-			# 使用正则获取headers中参数化的字段列表
-			re_list_header = re.findall(re_str, self.headers)
-			# 使用正则获取请求体中参数化的字段列表
-			re_list_body = re.findall(re_str, self.body)
-			# 使用正则获取预期结果(断言)中参数化的字段列表
-			re_list_expect = re.findall(re_str, self.expect)
-			if re_list_header:
-				# 对headers中参数化的字段进行激活赋值
-				for m in re_list_header:
-					self.headers = self.headers.replace(m, "f'{data[\"%s\"]}'" % (m[1:-1]))
-			if re_list_body:
-				# 对请求体中参数化的字段进行激活赋值
-				for n in re_list_body:
-					self.body = self.body.replace(n, "f'{data[\"%s\"]}'" % (n[1:-1]))
-			if re_list_expect:
-				# 对预期结果中参数化的字段进行激活赋值
-				for o in re_list_expect:
-					self.expect = self.expect.replace(o, "f'{data[\"%s\"]}'" % (o[1:-1]))
-			if type(args[0][-1]) == list:
-				args[0][-1].append(self.body)
-				for i in args[0][-1]:
-					_str = ''
-					_str += i
-				print(_str)
-				sss['sign_key'] = SignKey(_str).sign()
-				args[0].pop()
-			data = sss
-			# 对激活后的 headers/请求体/预期结果做类型转换
-			self.headers = eval(self.headers)
-			self.body = eval(self.body)
-			self.expect = eval(self.expect)
-			
-			if re_list_header or re_list_body or re_list_expect:
-				self.logger.debug("数据依赖类型      :需要依赖亦提供依赖数据")
-			else:
-				self.logger.debug("数据依赖类型      :无需依赖只提供依赖数据")
+			self.logger.debug(f"数据依赖类型      :{isRelate['relateType']}")
 			self.logger.debug(f"header          :{self.headers}")
 			self.logger.debug(f"请求体           :{self.body}")
 			response = self.method.run_main(url, method, self.headers, params, self.body, **kw)
@@ -175,22 +132,64 @@ class RunTest(unittest.TestCase, unittest.SkipTest):
 			except Exception as err:
 				self.logger.info(f" 实际结果为: {response} ")
 				self.logger.error(str(err))
-			# 将需要提供依赖的数据缓存
-			for _dict in relateData:
-				for _key in _dict:
-					a = [_key, _dict[_key]]
-					relate_value = jsonpath(res, expr=f"$..{a[0]}")
-					if relate_value:
-						# 这里如果 relate_value 存在的话类型其实是列表，所以取值使用需要注意
-						sss[a[1]] = relate_value[0]
-						self.logger.info(f"依赖数据缓存成功    :{a[0]}-->{a[1]}, 数据值为:{relate_value[0]}")
-					else:
-						self.logger.info("返回数据汇中指定的关联数据获取失败！")
+			else:
+				for _dict in relateData:
+					for _key in _dict:
+						a = [_key, _dict[_key]]
+						relate_value = jsonpath(res, expr=f"$..{a[0]}")
+						if relate_value:
+							# 这里如果 relate_value 存在的话类型其实是列表，所以取值使用需要注意
+							sss[a[1]] = relate_value[0]
+							self.logger.info(f"依赖数据缓存成功    :{a[0]}-->{a[1]}, 数据值为:{relate_value[0]}")
+						else:
+							self.logger.info("返回数据汇中指定的关联数据获取失败！")
 			# print(sss)
 			return res
-		# 如果该接口不用给其他接口提供依赖
-		else:
+		# 如果该接口关联类型只是关联输入
+		elif isRelate and isRelate["relateType"] == "relateIn":
+			# 获取存放的所有关联数据(这里其实数据不多，所以暂时统一存放在一个dict中)
+			# 将headers/请求体中的关联参数赋值激活
+			# 声明参数化的字段使用 两个#号夹住的写法，这里字段名称只能使用字母和数字--\w
+			re_str = '#\w+#'
+			# 使用正则获取headers中参数化的字段列表
+			self.headers = str(self.headers)
+			self.body = str(self.body)
+			self.expect = str(self.expect)
+			re_list_header = re.findall(re_str, self.headers)
+			# 使用正则获取请求体中参数化的字段列表
+			re_list_body = re.findall(re_str, self.body)
+			# 使用正则获取预期结果(断言)中参数化的字段列表
+			re_list_expect = re.findall(re_str, self.expect)
+			# 对headers中参数化的字段进行激活赋值
+			for m in re_list_header:
+				self.headers = self.headers.replace(m, "f'{data[\"%s\"]}'" % (m[1:-1]))
+			# 对请求体中参数化的字段进行激活赋值
+			for n in re_list_body:
+				self.body = self.body.replace(n, "f'{data[\"%s\"]}'" % (n[1:-1]))
+			# 对预期结果中参数化的字段进行激活赋值
+			for o in re_list_expect:
+				self.expect = self.expect.replace(o, "f'{data[\"%s\"]}'" % (o[1:-1]))
+			data = sss
+			# 对激活后的 headers/请求体/预期结果做类型转换
+			self.headers = eval(self.headers)
+			self.body = eval(self.body)
+			self.expect = eval(self.expect)
 			self.logger.debug("是否跳过         :否")
+			self.logger.debug(f"数据依赖类型      :{isRelate['relateType']}")
+			self.logger.debug(f"header          :{self.headers}")
+			self.logger.debug(f"请求体           :{self.body}")
+			response = self.method.run_main(url, method,  self.headers, params, self.body, **kw)
+			try:
+				res = response.json()
+				self.logger.debug(f"响应结果         :{res}")
+				self.logger.debug(f"预期结果         :{self.expect}")
+			except Exception as err:
+				self.logger.info(f" 实际结果为: {response} ")
+				self.logger.error(str(err))
+			# print(data)
+			return res
+		elif isRelate and isRelate["relateType"] == "all":
+			
 			re_str = '#\w+#'
 			self.headers = str(self.headers)
 			self.body = str(self.body)
@@ -201,38 +200,48 @@ class RunTest(unittest.TestCase, unittest.SkipTest):
 			re_list_body = re.findall(re_str, self.body)
 			# 使用正则获取预期结果(断言)中参数化的字段列表
 			re_list_expect = re.findall(re_str, self.expect)
-			if re_list_header:
-				# 对headers中参数化的字段进行激活赋值
-				for m in re_list_header:
-					self.headers = self.headers.replace(m, "f'{data[\"%s\"]}'" % (m[1:-1]))
-			if re_list_body:
-				# 对请求体中参数化的字段进行激活赋值
-				for n in re_list_body:
-					self.body = self.body.replace(n, "f'{data[\"%s\"]}'" % (n[1:-1]))
-			if re_list_expect:
-				# 对预期结果中参数化的字段进行激活赋值
-				for o in re_list_expect:
-					self.expect = self.expect.replace(o, "f'{data[\"%s\"]}'" % (o[1:-1]))
-			if type(args[0][-1]) == list:
-				# print(args[0][-1])
-				args[0][-1].append(self.body.replace('\'', '\"'))
-				# print(args[0][-1])
-				str_sign = ''.join(args[0][-1])
-				print(str_sign)
-				sss['sign_key'] = SignKey(str_sign).sign()
-				args[0].pop()
+			# 对headers中参数化的字段进行激活赋值
+			for m in re_list_header:
+				self.headers = self.headers.replace(m, "f'{data[\"%s\"]}'" % (m[1:-1]))
+			# 对请求体中参数化的字段进行激活赋值
+			for n in re_list_body:
+				self.body = self.body.replace(n, "f'{data[\"%s\"]}'" % (n[1:-1]))
+			# 对预期结果中参数化的字段进行激活赋值
+			for o in re_list_expect:
+				self.expect = self.expect.replace(o, "f'{data[\"%s\"]}'" % (o[1:-1]))
 			data = sss
 			# 对激活后的 headers/请求体/预期结果做类型转换
 			self.headers = eval(self.headers)
 			self.body = eval(self.body)
 			self.expect = eval(self.expect)
-			
-			if re_list_header or re_list_body or re_list_expect:
-				self.logger.debug("数据依赖类型      :需要依赖但不提供依赖数据")
-			else:
-				self.logger.debug("数据依赖类型      :无依赖亦无提供依赖数据")
-				
+			self.logger.debug("是否跳过         :否")
+			self.logger.debug(f"数据依赖类型      :{isRelate['relateType']}")
 			self.logger.debug(f"header          :{self.headers}")
+			self.logger.debug(f"请求体           :{self.body}")
+			relateData = isRelate["relateData"]
+			response = self.method.run_main(url, method, self.headers, params, self.body, **kw)
+			try:
+				res = response.json()
+				self.logger.debug(f"响应结果         :{res}")
+				self.logger.debug(f"预期结果         :{self.expect}")
+			except Exception as err:
+				self.logger.info(f" 实际结果为: {response} ")
+				self.logger.error(str(err))
+			else:
+				for _dict in relateData:
+					for _key in _dict:
+						a = [_key, _dict[_key]]
+						relate_value = jsonpath(res, expr=f"$..{a[0]}")
+						if relate_value:
+							# 这里如果 relate_value 存在的话类型其实是列表，所以取值使用需要注意
+							sss[a[1]] = relate_value[0]
+							self.logger.info(f"依赖数据缓存成功:{a[0]}-->{a[1]}, 数据值为:{relate_value[0]}")
+						else:
+							self.logger.info("返回数据汇中指定的关联数据获取失败！")
+			# print(sss)
+			return res
+		else:
+			self.logger.debug("是否跳过         :否")
 			self.logger.debug(f"请求体           :{self.body}")
 			response = self.method.run_main(url, method, self.headers, params, self.body, **kw)
 			try:
@@ -242,5 +251,6 @@ class RunTest(unittest.TestCase, unittest.SkipTest):
 			except Exception as err:
 				self.logger.info(f" 实际结果为: {response} ")
 				self.logger.error(str(err))
-			# print(sss)
 			return res
+		
+	# ============================================================================================

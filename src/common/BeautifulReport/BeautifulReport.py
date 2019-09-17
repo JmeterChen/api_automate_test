@@ -18,7 +18,7 @@ from distutils.sysconfig import get_python_lib
 import traceback
 from functools import wraps
 
-from src.common.runTest import RunTest
+from src.common.runTest0 import RunTest
 
 __all__ = ['BeautifulReport']
 

@@ -28,26 +28,25 @@ class RunMethod(MethodException):
         :param kw:            其他参数
         :return:        Response object，type requests.Response
         """
-		
 		try:
-			if method:
+			if method and headers:
 				if method.lower() == "get":
 					res = requests.get(url, params=para, **kw)
 				elif method.lower() == "post":
-					if headers["content-type"] == "application/json":
-						res = requests.post(url, params=para, json=data, **kw)
+					if "application/json" in headers["content-type"]:
+						res = requests.post(url, params=para, json=data, headers=headers, **kw)
 					else:
-						res = requests.post(url, params=para, data=data, **kw)
+						res = requests.post(url, params=para, data=data, headers=headers, **kw)
 				elif method.lower() == 'put':
-					res = requests.put(url, params=para, data=data, **kw)
+					res = requests.put(url, params=para, data=data, headers=headers, **kw)
 				elif method.lower() == 'patch':
-					res = requests.patch(url, params=para, data=data, **kw)
+					res = requests.patch(url, params=para, data=data, headers=headers, **kw)
 				elif method.lower() == 'delete':
-					res = requests.delete(url, params=para, **kw)
+					res = requests.delete(url, params=para, headers=headers, **kw)
 				elif method.lower() == 'head':
-					res = requests.head(url, params=para, **kw)
+					res = requests.head(url, params=para, headers=headers, **kw)
 				elif method.lower() == 'options':
-					res = requests.options(url, params=para, **kw)
+					res = requests.options(url, params=para, headers=headers, **kw)
 				else:
 					print("Do Not Support Http Method!Please check the args of requests")
 					raise MethodException

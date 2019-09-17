@@ -85,6 +85,5 @@
       "StoreByStoreId":"/data/getStoreByStoreId",
       "StoreMessage": "/data/getStoreMessage"
     }
-  },
-  "ddxf":{}
+  }
 }  
